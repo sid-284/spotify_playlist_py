@@ -1,4 +1,4 @@
-Project Proposal: Spotify AI Playlist Link Generator Using Machine Learning 							(by Sidharth Mohan)
+Project Proposal: Spotify AI Playlist Generator Using Machine Learning 							(by Sidharth Mohan)
 1. Introduction
 This project aims to develop a Spotify AI Playlist Link Generator that leverages machine learning to create personalized playlists based on user input. The user will provide a prompt (e.g., "rock-EDM" or a specific song), and the system will generate a playlist of 50 songs related to the search term. The final output will be a Spotify playlist link.
 
