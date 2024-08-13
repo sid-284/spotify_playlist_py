@@ -7,8 +7,8 @@ session.verify = False
 
 # Provide your Spotify credentials
 client_credentials_manager = SpotifyClientCredentials(
-    client_id='ff541e48fa02404b8a93bf3664dafa16',
-    client_secret='224c41201a9449aab4ff028987455ed9'
+    client_id='nice',
+    client_secret='dam'
 )
 #enter code from here.
 
