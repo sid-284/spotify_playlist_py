@@ -30,6 +30,7 @@ Week 2: Model selection, training, and initial evaluation
 Week 3: Integration with Spotify API and recommendation logic
 Week 4: User interface development, testing, and debugging
 Detailed 4-Week Action Plan
+
  Week 1: Project Setup, Data Collection, and Preprocessing
 Project Setup:
 Set up a GitHub repository for version control.
@@ -43,6 +44,7 @@ Data Preprocessing:
 Clean and normalize the dataset to ensure consistency.
 Perform exploratory data analysis (EDA) to understand feature distributions and correlations.
 Select relevant features for training the machine learning model.
+
 Week 2: Model Selection, Training, and Initial Evaluation
 Model Selection:
 Choose a suitable algorithm for song similarity (e.g., k-nearest neighbors (KNN) or support vector machines (SVM)).
@@ -51,6 +53,7 @@ Training and Evaluation:
 Split the dataset into training and testing sets.
 Train the model on the training set and evaluate its performance using metrics like precision, recall, and F1-score.
 Tune hyperparameters to optimize model performance.
+
 Week 3: Integration with Spotify API and Recommendation Logic
 Spotify API Integration:
 Set up OAuth2 authentication to access Spotify’s API securely.
@@ -58,6 +61,7 @@ Write functions to fetch song data from Spotify using the API.
 Recommendation Logic:
 Implement the logic to recommend 50 songs based on user input (prompt).
 Ensure the model uses the trained algorithm to find similar songs and generate recommendations.
+
 Week 4: User Interface Development, Testing, and Debugging
 User Interface Development:
 Develop a simple command-line interface (CLI) for user input.
@@ -68,6 +72,7 @@ Debug any issues and ensure the system works smoothly.
 Documentation and Final Presentation:
 Write comprehensive documentation explaining the project, including setup instructions, usage, and underlying methodologies.
 Prepare a presentation to showcase the project’s features and capabilities.
+
 Expected Outcomes
 A functional machine learning model capable of recommending personalized songs.
 A user-friendly interface for inputting search prompts and receiving song recommendations.
