@@ -47,8 +47,8 @@ print(f"R-squared: {r2}")
 
 # Initialize Spotify client with credentials
 client_credentials_manager = SpotifyClientCredentials(
-    client_id='ff541e48fa02404b8a93bf3664dafa16',
-    client_secret='224c41201a9449aab4ff028987455ed9'
+    client_id='ayy',
+    client_secret='lol'
 )
 spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
