@@ -111,8 +111,8 @@ def get_recommendations(input_song_id, df, model, features, n_recommendations=50
 
 
 client_credentials_manager = SpotifyClientCredentials(
-    client_id="db337ae49ec747539c71ffd8aabbb2e8",
-    client_secret="bb5820a911bc4cb0a5e9469543a14073"
+    client_id="no",
+    client_secret="kk"
 )
 spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
