@@ -17,7 +17,6 @@ with open('spotify_playlist_details.json', 'r') as f:
 df = pd.DataFrame(data)
 df = df.drop_duplicates(subset='track_id')
 df['tempo_energy_ratio'] = df['tempo_bpm'] / df['energy']
-df['tempo_energy_ratio_normalized'] = df['tempo_energy_ratio'] / df['tempo_energy_ratio'].max()
 
 # Normalize numerical features
 scaler = MinMaxScaler()
@@ -27,7 +26,7 @@ df[['tempo_bpm', 'energy', 'danceability', 'popularity']] = scaler.fit_transform
 df['target'] = df['tempo_bpm']  # Replace 'target' with your actual target variable
 
 # Features for the model
-X = df[['tempo_bpm', 'energy', 'danceability', 'popularity', 'tempo_energy_ratio_normalized']]
+X = df[['tempo_bpm', 'energy', 'danceability', 'popularity', 'tempo_energy_ratio']]
 y = df['target']
 
 # Split the data into training and testing sets
@@ -48,8 +47,8 @@ print(f"R-squared: {r2}")
 
 # Initialize Spotify client with credentials
 client_credentials_manager = SpotifyClientCredentials(
-     client_id='ff541e48fa02404b8a93bf3664dafa16',
-     client_secret='224c41201a9449aab4ff028987455ed9'
+    client_id='ff541e48fa02404b8a93bf3664dafa16',
+    client_secret='224c41201a9449aab4ff028987455ed9'
 )
 spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
@@ -81,7 +80,6 @@ def get_recommendations(input_song_id, df, model, features, n_recommendations=50
         song_details = fetch_song_details_from_api(input_song_id)
         if song_details:
             song_details['tempo_energy_ratio'] = song_details['tempo_bpm'] / song_details['energy']
-            song_details['tempo_energy_ratio_normalized'] = song_details['tempo_energy_ratio'] / df['tempo_energy_ratio'].max()
             song_details_df = pd.DataFrame([song_details])
             song_details_df[['tempo_bpm', 'energy', 'danceability', 'popularity']] = scaler.transform(song_details_df[['tempo_bpm', 'energy', 'danceability', 'popularity']])
             df = pd.concat([df, song_details_df], ignore_index=True)
@@ -198,10 +196,11 @@ def chatbot(user_input):
     elif 'recommend' in user_input.lower():
         track_name = user_input.replace('recommend', '').strip()
         track_id = get_track_id(track_name)
-        features = ['tempo_bpm', 'energy', 'danceability', 'popularity', 'tempo_energy_ratio_normalized']
+        features = ['tempo_bpm', 'energy', 'danceability', 'popularity', 'tempo_energy_ratio']  # Use tempo_energy_ratio instead of normalized
         recommendations = get_recommendations(track_id, df, model, features)
         if recommendations is not None:
-            return recommendations[['track_name', 'similarity_score']].to_json(orient='records')
+            track_names = recommendations['track_name'].tolist()
+            return '\n'.join(track_names)
         else:
             return "No recommendations found."
     else:
