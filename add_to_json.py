@@ -5,7 +5,7 @@ import json
 # Initialize the Spotify client
 client_credentials_manager = SpotifyClientCredentials(
     client_id='nice',
-    client_secret='dam'
+    client_secret='damm'
 )
 spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
