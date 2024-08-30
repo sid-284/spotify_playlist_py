@@ -1,31 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Chatbot</title>
+    <title>ThinkWave</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            max-width: 700px;
+            width: 100%;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+            background-image: url('https://www.transparenttextures.com/patterns/music-sheet.png');
+            position: relative;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 2px solid #6c757d;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1em;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        input[type="text"]::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .send-button {
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            background-color: #4b4b6a;
+            color: white;
+        }
+
+        #response {
+            padding: 25px;
+            border-radius: 8px;
+            flex-grow: 2;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .theme-toggle,
+        .random-fact-button {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            background-color: #4b4b6a;
+            color: white;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 1em;
+        }
+
+        .theme-toggle {
+            margin-right: 10px;
+        }
+
+        .fact-container {
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f1f1f1;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1em;
+            color: #333;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Dark Theme */
+        body.dark {
+            background: linear-gradient(135deg, #3b3a56, #1a1a28);
+            color: #f4f4f4;
+        }
+
+        .container.dark {
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        input[type="text"].dark {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+
+        .send-button.dark {
+            background-color: #4b4b6a;
+            color: white;
+        }
+
+        #response.dark {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .fact-container.dark {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #f4f4f4;
+        }
+
+        /* Light Theme */
+        body.light {
+            background: linear-gradient(135deg, #f3f4f6, #eaecef);
+            color: #333;
+        }
+
+        .container.light {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="text"].light {
+            background-color: #fff;
+            color: #333;
+            border: 2px solid #ccc;
+        }
+
+        .send-button.light {
+            background-color: #d1d5db;
+            color: #333;
+        }
+
+        #response.light {
+            background-color: #fff;
+            color: #333;
+        }
+
+        .theme-toggle.light,
+        .random-fact-button.light {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .fact-container.light {
+            background-color: #fff;
+            color: #333;
+        }
+    </style>
 </head>
-<body>
-    <h1>Music Chatbot</h1>
-    <input type="text" id="userInput" placeholder="Ask the chatbot...">
-    <button onclick="sendMessage()">Send</button>
-    <div id="response"></div>
+
+<body class="dark">
+    <div class="container dark">
+        <div class="button-container">
+            <button class="theme-toggle dark">Light mode</button>
+            <button class="random-fact-button dark">Random</button>
+        </div>
+        <h2>ThinkWave</h2>
+        <div id="response"></div>
+        <form id="chat-form">
+            <div class="input-container">
+                <input type="text" id="message" name="message" placeholder="Ask ThinkWave..." required class="dark">
+                <button type="submit" class="send-button dark">Send</button>
+            </div>
+        </form>
+        <div id="fact-container" class="fact-container dark">
+            Loading a random music fact...
+        </div>
+    </div>
 
     <script>
-        function sendMessage() {
-            const userInput = document.getElementById("userInput").value;
+        document.querySelector('.theme-toggle').addEventListener('click', function () {
+            const body = document.body;
+            const container = document.querySelector('.container');
+            const inputs = document.querySelectorAll('input');
+            const sendButton = document.querySelector('.send-button');
+            const responseDiv = document.getElementById('response');
+            const themeToggleButton = document.querySelector('.theme-toggle');
+            const factContainer = document.getElementById('fact-container');
+            const randomFactButton = document.querySelector('.random-fact-button');
+
+            body.classList.toggle('dark');
+            body.classList.toggle('light');
+            container.classList.toggle('dark');
+            container.classList.toggle('light');
+            responseDiv.classList.toggle('dark');
+            responseDiv.classList.toggle('light');
+            factContainer.classList.toggle('dark');
+            factContainer.classList.toggle('light');
+            themeToggleButton.classList.toggle('dark');
+            themeToggleButton.classList.toggle('light');
+            randomFactButton.classList.toggle('dark');
+            randomFactButton.classList.toggle('light');
+            sendButton.classList.toggle('dark');
+            sendButton.classList.toggle('light');
+
+            inputs.forEach(input => {
+                input.classList.toggle('dark');
+                input.classList.toggle('light');
+            });
+
+            if (body.classList.contains('dark')) {
+                themeToggleButton.textContent = 'Light mode';
+            } else {
+                themeToggleButton.textContent = 'Dark mode';
+            }
+        });
+
+        document.getElementById('chat-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const message = document.getElementById('message').value;
             fetch('/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ message: userInput })
+                body: JSON.stringify({ message: message })
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("response").innerText = data.response;
+                const responseDiv = document.getElementById('response');
+                responseDiv.innerText = data.response;
+                responseDiv.scrollTop = responseDiv.scrollHeight; // Auto-scroll to the bottom
+
+                // Load a new random fact after sending the message
+                loadRandomFact();
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
+        });
+
+        document.querySelector('.random-fact-button').addEventListener('click', function() {
+            loadRandomFact();
+        });
+
+        function loadRandomFact() {
+            fetch('/random-fact')
+                .then(response => response.json())
+                .then(data => {
+                    const factContainer = document.getElementById('fact-container');
+                    factContainer.textContent = data.fact;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
+
+        // Load a random fact when the page loads
+        loadRandomFact();
     </script>
 </body>
+
 </html>
