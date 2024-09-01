@@ -1,22 +1,29 @@
 Project Proposal: Spotify AI Song Recommendation Using Machine Learning
 (by Sidharth Mohan)
+
 Introduction This project aims to develop a Spotify AI Song Recommendation system that leverages machine learning to create personalized song recommendations based on user input. The user will provide a prompt (e.g., "rock-EDM" or a specific song), and the system will recommend a list of 50 songs related to the search term.
+
 Objectives
 Develop a machine learning model to identify and recommend songs based on a given prompt.
 Integrate the model with Spotify's API to fetch song data.
 Create a user-friendly interface for inputting search prompts.
 Generate a list of 50 recommended songs based on the user input.
+
 Methodology 3.1. Data Collection
 Spotify API: Use Spotify (a Python library for the Spotify Web API) to collect data on songs, including features like genre, tempo, key, and popularity.
+
 3.2. Data Preprocessing
 Clean and normalize the data to ensure consistency.
 Feature extraction: Focus on relevant features such as genre, tempo, key, energy, and danceability.
+
 3.3. Model Development
 Model Selection: Use machine learning algorithms like k-nearest neighbors (KNN) or support vector machines (SVM) to find similar songs.
 Training and Evaluation: Train and evaluate the model using metrics like precision, recall, and F1-score.
+
 3.4. Integration with Spotify API
 Authentication: Set up OAuth2 authentication to access Spotify's API.
 Data Fetching: Fetch song data from Spotify using the trained model to recommend songs based on user input.
+
 3.5. User Interface
 Develop a simple command-line interface (CLI) where users can input their search prompt.
 Display the list of recommended songs.
@@ -24,6 +31,7 @@ Tools and Technologies
 Programming Language: Python
 Libraries: Spotipy, Pandas, Scikit-learn
 Spotify API: For accessing and manipulating Spotify data
+
 Timeline
 Week 1: Project setup, data collection, data preprocessing
 Week 2: Model selection, training, and initial evaluation
